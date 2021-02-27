@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebServiceRequestEntity>
    <description></description>
-   <name>Addition</name>
+   <name>GetCapitalSOAP</name>
    <tag></tag>
-   <elementGuidId>7a62fdbe-f0cf-48ea-8125-4c0ae6e564e8</elementGuidId>
+   <elementGuidId>f805e42f-e9d6-4ccd-9240-c6a99457c7f7</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <connectionTimeout>-1</connectionTimeout>
@@ -17,18 +17,24 @@
    <serviceType>SOAP</serviceType>
    <soapBody>&lt;Envelope xmlns=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;>
     &lt;Body>
-        &lt;Add xmlns=&quot;http://tempuri.org/&quot;>
-            &lt;intA>2&lt;/intA>
-            &lt;intB>4&lt;/intB>
-        &lt;/Add>
+        &lt;CapitalCity xmlns=&quot;http://www.oorsprong.org/websamples.countryinfo&quot;>
+            &lt;sCountryISOCode>${CountryISOCode2}&lt;/sCountryISOCode>
+        &lt;/CapitalCity>
     &lt;/Body>
 &lt;/Envelope></soapBody>
    <soapHeader></soapHeader>
    <soapRequestMethod>SOAP</soapRequestMethod>
    <soapServiceEndpoint></soapServiceEndpoint>
-   <soapServiceFunction>Add</soapServiceFunction>
+   <soapServiceFunction>CountryISOCode</soapServiceFunction>
    <socketTimeout>-1</socketTimeout>
    <useServiceInfoFromWsdl>true</useServiceInfoFromWsdl>
+   <variables>
+      <defaultValue>GlobalVariable.countyCode</defaultValue>
+      <description></description>
+      <id>989eb489-160c-42c5-bac3-1773c29db310</id>
+      <masked>false</masked>
+      <name>CountryISOCode2</name>
+   </variables>
    <verificationScript>import static org.assertj.core.api.Assertions.*
 
 import com.kms.katalon.core.testobject.RequestObject
@@ -45,14 +51,6 @@ ResponseObject response = WSResponseManager.getInstance().getCurrentResponse()
 
 
 
-
-WS.verifyResponseStatusCode(response, 200)
-
-assertThat(response.getStatusCode()).isEqualTo(200)
-
-
-assertThat(response.getResponseText()).contains('AddResult')
-
-WS.verifyElementPropertyValue(response, 'AddResponse.AddResult', '6')</verificationScript>
-   <wsdlAddress>http://www.dneonline.com/calculator.asmx?WSDL</wsdlAddress>
+WS.verifyElementText(response, 'CapitalCityResponse.CapitalCityResult', 'Jakarta')</verificationScript>
+   <wsdlAddress>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL</wsdlAddress>
 </WebServiceRequestEntity>

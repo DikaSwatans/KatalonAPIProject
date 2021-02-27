@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebServiceRequestEntity>
    <description></description>
-   <name>Addition</name>
+   <name>LustCountries</name>
    <tag></tag>
-   <elementGuidId>7a62fdbe-f0cf-48ea-8125-4c0ae6e564e8</elementGuidId>
+   <elementGuidId>8412b2b5-f7a3-420a-b11e-e14e53cf865e</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <connectionTimeout>-1</connectionTimeout>
@@ -17,16 +17,13 @@
    <serviceType>SOAP</serviceType>
    <soapBody>&lt;Envelope xmlns=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;>
     &lt;Body>
-        &lt;Add xmlns=&quot;http://tempuri.org/&quot;>
-            &lt;intA>2&lt;/intA>
-            &lt;intB>4&lt;/intB>
-        &lt;/Add>
+        &lt;ListOfCountryNamesByName xmlns=&quot;http://www.oorsprong.org/websamples.countryinfo&quot;/>
     &lt;/Body>
 &lt;/Envelope></soapBody>
    <soapHeader></soapHeader>
    <soapRequestMethod>SOAP</soapRequestMethod>
    <soapServiceEndpoint></soapServiceEndpoint>
-   <soapServiceFunction>Add</soapServiceFunction>
+   <soapServiceFunction>ListOfContinentsByName</soapServiceFunction>
    <socketTimeout>-1</socketTimeout>
    <useServiceInfoFromWsdl>true</useServiceInfoFromWsdl>
    <verificationScript>import static org.assertj.core.api.Assertions.*
@@ -42,17 +39,6 @@ import internal.GlobalVariable as GlobalVariable
 RequestObject request = WSResponseManager.getInstance().getCurrentRequest()
 
 ResponseObject response = WSResponseManager.getInstance().getCurrentResponse()
-
-
-
-
-WS.verifyResponseStatusCode(response, 200)
-
-assertThat(response.getStatusCode()).isEqualTo(200)
-
-
-assertThat(response.getResponseText()).contains('AddResult')
-
-WS.verifyElementPropertyValue(response, 'AddResponse.AddResult', '6')</verificationScript>
-   <wsdlAddress>http://www.dneonline.com/calculator.asmx?WSDL</wsdlAddress>
+WS.verifyElementText(response, 'ListOfCountryNamesByNameResponse.ListOfCountryNamesByNameResult.tCountryCodeAndName[0].sISOCode', 'AX')</verificationScript>
+   <wsdlAddress>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL</wsdlAddress>
 </WebServiceRequestEntity>

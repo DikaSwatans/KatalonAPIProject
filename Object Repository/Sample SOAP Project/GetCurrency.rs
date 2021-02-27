@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebServiceRequestEntity>
    <description></description>
-   <name>Addition</name>
+   <name>GetCurrency</name>
    <tag></tag>
-   <elementGuidId>7a62fdbe-f0cf-48ea-8125-4c0ae6e564e8</elementGuidId>
+   <elementGuidId>48bc8cfc-f3f6-4ea2-86b7-7cc5da92c75f</elementGuidId>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <connectionTimeout>-1</connectionTimeout>
@@ -17,18 +17,24 @@
    <serviceType>SOAP</serviceType>
    <soapBody>&lt;Envelope xmlns=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;>
     &lt;Body>
-        &lt;Add xmlns=&quot;http://tempuri.org/&quot;>
-            &lt;intA>2&lt;/intA>
-            &lt;intB>4&lt;/intB>
-        &lt;/Add>
+        &lt;CountryCurrency xmlns=&quot;http://www.oorsprong.org/websamples.countryinfo&quot;>
+            &lt;sCountryISOCode>${CountryCurrencyCode}&lt;/sCountryISOCode>
+        &lt;/CountryCurrency>
     &lt;/Body>
 &lt;/Envelope></soapBody>
    <soapHeader></soapHeader>
    <soapRequestMethod>SOAP</soapRequestMethod>
    <soapServiceEndpoint></soapServiceEndpoint>
-   <soapServiceFunction>Add</soapServiceFunction>
+   <soapServiceFunction>CurrencyName</soapServiceFunction>
    <socketTimeout>-1</socketTimeout>
    <useServiceInfoFromWsdl>true</useServiceInfoFromWsdl>
+   <variables>
+      <defaultValue>GlobalVariable.CountryCurrencyCode</defaultValue>
+      <description></description>
+      <id>83462124-b4b0-4d06-b87b-c6deffff19b3</id>
+      <masked>false</masked>
+      <name>CountryCurrencyCode</name>
+   </variables>
    <verificationScript>import static org.assertj.core.api.Assertions.*
 
 import com.kms.katalon.core.testobject.RequestObject
@@ -42,17 +48,7 @@ import internal.GlobalVariable as GlobalVariable
 RequestObject request = WSResponseManager.getInstance().getCurrentRequest()
 
 ResponseObject response = WSResponseManager.getInstance().getCurrentResponse()
-
-
-
-
-WS.verifyResponseStatusCode(response, 200)
-
-assertThat(response.getStatusCode()).isEqualTo(200)
-
-
-assertThat(response.getResponseText()).contains('AddResult')
-
-WS.verifyElementPropertyValue(response, 'AddResponse.AddResult', '6')</verificationScript>
-   <wsdlAddress>http://www.dneonline.com/calculator.asmx?WSDL</wsdlAddress>
+WS.verifyElementText(response, 'CountryCurrencyResponse.CountryCurrencyResult.sName', 'Rupiahs')
+WS.verifyElementText(response, 'CountryCurrencyResponse.CountryCurrencyResult.sName', 'Rupiahs')</verificationScript>
+   <wsdlAddress>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL</wsdlAddress>
 </WebServiceRequestEntity>
